@@ -1,0 +1,64 @@
+<% layout("layouts/boilerplate") %>
+<main class="container">
+    <section>
+        <header class="row mt-5 heading pb-4">
+            <h1 class="text-center">About</h1>
+        </header>
+        <div class="row g-0 justify-content-center align-items-center">
+            <div class="col-lg-8 mt-5">
+                <img class="rounded-circle mx-auto d-block" id="profile" src="images/profile.png" alt="">
+            </div>
+        </div>
+        <div class="row justify-content-center align-items-center">
+            <div class="col-lg-6 mt-3">
+                <p class="item p-3">
+                    {<span>Alexa</span>} is a computer programmer who loves teaching
+                    ordinary people how to code. Her YouTube channel name, <a
+                        href="https://www.youtube.com/channel/UCdNnHNkhaRYr-3nhQqY7_dw" target="_blank"
+                        rel="noopener noreferrer">Robotic Nation</a>,
+                    reflects
+                    her mission to provide STEM education for all.
+                </p>
+                <p class="item p-3">
+                    Through her video content covering
+                    topics in Web Development, Discord Bot creation, and Software Engineering, she
+                    has grown a community eager to pursue Computer Science along with her. She is
+                    seldom head empty,
+                    which explains her plethora of loosely connected interests including pixel art,
+                    video editing, story writing, and game design.
+                </p>
+            </div>
+        </div>
+    </section>
+    <header class="row my-5 pb-3 heading justify-content-center align-items-center">
+        <h3 class="text-center">{<span>Contact Me</span>}</h3>
+    </header>
+    <section>
+        <form class="my-3" action="" method="POST">
+            <div class="row justify-content-center align-items-center">
+                <div class="form-group col-lg-6">
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control" id="name">
+                </div>
+            </div>
+            <div class="row justify-content-center align-items-center">
+                <div class="form-group col-lg-6">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email">
+                </div>
+            </div>
+            <div class="row justify-content-center align-items-center">
+                <div class="form-group col-lg-6">
+                    <label for="message">Message</label>
+                    <textarea class="form-control" id="message" rows="3"></textarea>
+                </div>
+            </div>
+            <div class="row my-3 align-items-center">
+                <div class="form-group col-lg-2 offset-3">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+
+        </form>
+    </section>
+</main>
