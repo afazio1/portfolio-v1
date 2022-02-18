@@ -55,7 +55,9 @@ input, textarea {
 span {
     color: #B0FF92;
 }
-
+.btn:hover {
+    text-decoration: none;
+}
 .icon:hover {
     padding: 0.3rem;
     border-bottom: #F2E863 solid 2px;
@@ -109,7 +111,7 @@ b {
   position: relative;
 }
 
-.card::after {
+.timeline > .card::after {
   content: "";
   position: absolute;
   height: 2rem;

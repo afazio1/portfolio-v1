@@ -1,0 +1,32 @@
+<% layout("layouts/boilerplate") %>
+<main class="container">
+
+    <section>
+        <header class="row mt-5 heading pb-4">
+            <h1 class="text-center">Education</h1>
+        </header>
+        <div class="row justify-content-center align-items-center">
+            <div class="col-lg-8 mt-3">
+                <div class="timeline">
+                    <% for (let education of educations) { %>
+                    <div class="card item text-center my-4">
+                        <div class="card-body">
+                            <h5 class="card-title text-white"><a href="<%= education.link %>" target="_blank"
+                                    rel="noopener noreferrer"><%= education.name %></a></h5>
+                            <p class="card-text"><%= education.description %></p>
+                        </div>
+                        <div class="card-footer text-white">
+                            <%= education.startDate.toLocaleString("en-US", { month: "short", year: "numeric"}) %> -
+                            <% if (education.endDate !== undefined) { %>
+                            <%= education.endDate.toLocaleString("en-US", { month: "short", year: "numeric"})%>
+                            <% } else { %>
+                            <span>Current</span>
+                            <% } %>
+                        </div>
+                    </div>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
