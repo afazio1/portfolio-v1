@@ -29,6 +29,7 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
 app.use(express.urlencoded({ extended: true}));
+app.use(express.json());
 app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -43,13 +44,17 @@ app.get("/about", (req, res) => {
 });
 
 // EDUCATION
+app.post("/education", async (req, res) => {
+    const edu = new Education(req.body);
+    await edu.save();
+    res.redirect("/education");
+});
+
 app.get("/education", async (req, res) => {
     const educations = await Education.find({});
     res.render("educations/index", { educations });
 });
-app.post("/education", (req, res) => {
 
-})
 app.get("/education/new", (req, res) => {
     res.render("educations/new");
 });

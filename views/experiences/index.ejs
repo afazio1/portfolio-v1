@@ -12,7 +12,8 @@
                     <div class="card item text-center my-4">
                         <div class="card-body">
                             <h5 class="card-title text-white"><%= experience.title %>
-                                @ <a href="<%= experience.link %>"><span><%= experience.employer %></span></a>
+                                @ <a href="<%= experience.link %>" target="_blank"
+                                    rel="noopener noreferrer"><span><%= experience.employer %></span></a>
                             </h5>
                             <p class="card-text"><%= experience.stack.join(", ") %></p>
                         </div>
