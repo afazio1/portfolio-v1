@@ -1,0 +1,64 @@
+<% layout("layouts/boilerplate") %>
+<main class="container">
+
+    <section>
+        <header class="row mt-5 heading pb-4">
+            <h1 class="text-center">Edit <%= exp.name %></h1>
+        </header>
+        <div class="row justify-content-center align-items-center">
+            <div class="col-lg-8 mt-3">
+                <form class="my-3" action="/experience/<%= exp._id %>?_method=PUT" method="POST" autocomplete="off">
+                    <div class="row justify-content-center align-items-center">
+                        <div class="form-group col-lg-6">
+                            <label for="name">Title</label>
+                            <input type="text" class="form-control" id="title" name="title" value="<%= exp.title %>"
+                                required>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center align-items-center">
+                        <div class="form-group col-lg-6">
+                            <label for="description">Employer</label>
+                            <input type="text" class="form-control" id="employer" name="employer"
+                                value="<%= exp.employer %>" required>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center align-items-center">
+                        <div class="form-group col-lg-6">
+                            <label for="link">Link</label>
+                            <input type="text" class="form-control" id="link" name="link" value="<%= exp.link %>"
+                                required>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center align-items-center">
+                        <div class="form-group col-lg-6">
+                            <label for="stack">Stack</label>
+                            <input type="text" class="form-control" id="stack" name="stack" value="<%= exp.stack %>"
+                                required>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center align-items-center">
+                        <div class="form-group col-lg-3">
+                            <label for="startDate">Start Date</label>
+                            <input type="date" class="form-control" id="startDate" name="startDate"
+                                value="<%= exp.startDate.toISOString().split('T')[0] %>" required>
+                        </div>
+                        <div class="form-group col-lg-3">
+                            <label for="endDate">End Date</label>
+                            <% if(exp.endDate === undefined || exp.endDate === null) { %>
+                            <input type="date" class="form-control" id="endDate" name="endDate">
+                            <% } else { %>
+                            <input type="date" class="form-control" id="endDate" name="endDate"
+                                value="<%= exp.startDate.toISOString().split('T')[0] %>">
+                            <% } %>
+                        </div>
+                    </div>
+                    <div class="row my-3 align-items-center">
+                        <div class="form-group col-lg-2 offset-3">
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</main>

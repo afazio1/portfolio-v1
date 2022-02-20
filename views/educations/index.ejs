@@ -19,7 +19,7 @@
                         </div>
                         <div class="card-footer text-white">
                             <%= education.startDate.toLocaleString("en-US", { month: "short", year: "numeric"}) %> -
-                            <% if (education.endDate !== undefined) { %>
+                            <% if (education.endDate !== undefined && education.endDate !== null) { %>
                             <%= education.endDate.toLocaleString("en-US", { month: "short", year: "numeric"})%>
                             <% } else { %>
                             <span>Current</span>
@@ -27,7 +27,10 @@
                             <hr>
                             <div>
                                 <a href="education/<%= education._id %>/edit" class="btn btn-info">Edit</a>
-                                <a href="education/<%= education._id %>/delete" class="btn btn-danger">Delete</a>
+                                <form class="d-inline" action="education/<%= education._id %>?_method=DELETE"
+                                    method="POST">
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
                             </div>
                         </div>
                     </div>

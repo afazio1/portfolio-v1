@@ -3,28 +3,34 @@
 
     <section>
         <header class="row mt-5 heading pb-4">
-            <h1 class="text-center">Add New Education</h1>
+            <h1 class="text-center">Add New Experience</h1>
         </header>
         <div class="row justify-content-center align-items-center">
             <div class="col-lg-8 mt-3">
-                <form class="my-3" action="/education" method="POST" autocomplete="off">
+                <form class="my-3" action="/experience" method="POST" autocomplete="off">
                     <div class="row justify-content-center align-items-center">
                         <div class="form-group col-lg-6">
-                            <label for="name">Name</label>
-                            <input type="text" class="form-control" id="name" name="name" required>
+                            <label for="title">Title</label>
+                            <input type="text" class="form-control" id="title" name="title" required>
                         </div>
                     </div>
                     <div class="row justify-content-center align-items-center">
                         <div class="form-group col-lg-6">
-                            <label for="description">Description</label>
-                            <textarea class="form-control" id="description" rows="3" name="description"
-                                required></textarea>
+                            <label for="employer">Employer</label>
+                            <input type="text" class="form-control" id="employer" name="employer" required>
                         </div>
                     </div>
                     <div class="row justify-content-center align-items-center">
                         <div class="form-group col-lg-6">
                             <label for="link">Link</label>
                             <input type="text" class="form-control" id="link" name="link" required>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center align-items-center">
+                        <div class="form-group col-lg-6">
+                            <label for="stack">Stack</label>
+                            <input type="text" class="form-control" id="stack" name="stack" placeholder="HTML,CSS,JS"
+                                required>
                         </div>
                     </div>
                     <div class="row justify-content-center align-items-center">

@@ -58,23 +58,59 @@ app.get("/education", async (req, res) => {
 app.get("/education/new", (req, res) => {
     res.render("educations/new");
 });
-app.get("/education/:id/edit", (req, res) => {
+app.put("/education/:id", async (req, res) => {
+    await Education.findByIdAndUpdate({_id: req.params.id}, req.body);
+    res.redirect("/education");
 
+})
+app.delete("/education/:id", async (req, res) => {
+    await Education.findByIdAndDelete({_id: req.params.id});
+    res.redirect("/education");
+});
+app.get("/education/:id/edit", async (req, res) => {
+    const edu = await Education.findById({_id: req.params.id});
+    res.render("educations/edit", { edu });
 });
 
 // EXPERIENCE
+app.post("/experience", async (req, res) => {
+    const exp = new Experience(req.body);
+    await exp.save();
+    res.redirect("/experience");
+});
+
 app.get("/experience", async (req, res) => {
     const experiences = await Experience.find({});
+    console.log(experiences);
     res.render("experiences/index", { experiences });
 });
-app.post("/experience", (req, res) => {
-    
-});
+
 app.get("/experience/new", (req, res) => {
     res.render("experiences/new");
 });
-app.get("/experience/:id/edit", (req, res) => {
-    
+app.put("/experience/:id", async (req, res) => {
+    const {title, employer, link, stack, startDate, endDate} = req.body;
+    stack = stack.split(",");
+    const newExp = {
+        title: title,
+        employer: employer,
+        link: link,
+        stack: stack,
+        startDate: startDate,
+        endDate: endDate
+    }
+
+    await Experience.findByIdAndUpdate({_id: req.params.id}, newExp);
+    res.redirect("/experience");
+
+})
+app.delete("/experience/:id", async (req, res) => {
+    await Experience.findByIdAndDelete({_id: req.params.id});
+    res.redirect("/experience");
+});
+app.get("/experience/:id/edit", async (req, res) => {
+    const exp = await Experience.findById({_id: req.params.id});
+    res.render("experiences/edit", { exp });
 });
 
 // PROJECTS
