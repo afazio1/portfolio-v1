@@ -4,7 +4,9 @@ const path = require("path");
 
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
+const {educationSchema, experienceSchema} = require("./schemas.js")
 const catchAsync = require("./utils/catchAsync");
+const ExpressError = require("./utils/ExpressError");
 
 const mongoose = require("mongoose");
 
@@ -34,6 +36,29 @@ app.use(express.json());
 app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "public")));
 
+// BACKEND FORM VALIDATION FUNCTIONS
+const validateEducation = (req, res, next) => {
+    const {error} = educationSchema.validate(req.body);
+    if (error) {
+        const message = error.details.map(el => el.message).join(",");
+        throw new ExpressError(message, 400);
+    }
+    else {
+        next();
+    }
+}
+
+const validateExperience = (req, res, next) => {
+    const {error} = experienceSchema.validate(req.body);
+    if (error) {
+        const message = error.details.map(el => el.message).join(",");
+        throw new ExpressError(message, 400);
+    }
+    else {
+        next();
+    }
+}
+
 // HOME
 app.get("/", (req, res) => {
     res.render("home");
@@ -45,9 +70,8 @@ app.get("/about", (req, res) => {
 });
 
 // EDUCATION
-app.post("/education", catchAsync(async (req, res, next) => {
-
-    const edu = new Education({rats: "yes"});
+app.post("/education", validateEducation, catchAsync(async (req, res, next) => {
+    const edu = new Education(req.body);
     await edu.save();
     res.redirect("/education");
 }));
@@ -60,7 +84,7 @@ app.get("/education", catchAsync(async (req, res) => {
 app.get("/education/new", (req, res) => {
     res.render("educations/new");
 });
-app.put("/education/:id", catchAsync(async (req, res) => {
+app.put("/education/:id", validateEducation, catchAsync(async (req, res) => {
     await Education.findByIdAndUpdate({_id: req.params.id}, req.body);
     res.redirect("/education");
 
@@ -77,7 +101,7 @@ app.get("/education/:id/edit", catchAsync(async (req, res) => {
 }));
 
 // EXPERIENCE
-app.post("/experience", catchAsync(async (req, res) => {
+app.post("/experience", validateExperience, catchAsync(async (req, res) => {
     let {title, employer, link, stack, startDate, endDate} = req.body;
     stack = stack.split(",");
     const newExp = {
@@ -102,7 +126,7 @@ app.get("/experience", catchAsync(async (req, res) => {
 app.get("/experience/new", (req, res) => {
     res.render("experiences/new");
 });
-app.put("/experience/:id", catchAsync(async (req, res) => {
+app.put("/experience/:id", validateExperience, catchAsync(async (req, res) => {
     let {title, employer, link, stack, startDate, endDate} = req.body;
     stack = stack.split(",");
     const newExp = {
@@ -137,8 +161,15 @@ app.get("/projects/:id", (req, res) => {
     res.send("singular project");
 });
 
+app.all("*", (req, res, next) => {
+    next(new ExpressError("Page not found", 404));
+});
+
 app.use((err, req, res, next) => {
-    res.send("something went wrong")
+    const { statusCode = 500 } = err;
+    if(!err.message) err.message = "Something went wrong.";
+    res.status(statusCode).render("error", { err });
+
 })
 app.listen(3000, () => {
     console.log("Serving on port 3000");
