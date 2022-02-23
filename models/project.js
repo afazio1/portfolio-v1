@@ -6,7 +6,11 @@ const ProjectSchema = new Schema({
         type: String,
         required: true
     }, 
-    description: {
+    shortDescription: {
+        type: String,
+        required: true
+    },
+    longDescription: {
         type: String,
         required: true
     },
@@ -15,6 +19,10 @@ const ProjectSchema = new Schema({
         required: true
     },
     link: {
+        type: String,
+        required: true
+    },
+    image: {
         type: String,
         required: true
     }

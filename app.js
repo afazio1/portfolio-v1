@@ -85,13 +85,13 @@ app.get("/education/new", (req, res) => {
     res.render("educations/new");
 });
 app.put("/education/:id", validateEducation, catchAsync(async (req, res) => {
-    await Education.findByIdAndUpdate({_id: req.params.id}, req.body);
+    const edu = await Education.findByIdAndUpdate({_id: req.params.id}, req.body);
     res.redirect("/education");
 
 }));
 
 app.delete("/education/:id", catchAsync(async (req, res) => {
-    await Education.findByIdAndDelete({_id: req.params.id});
+    const edu = await Education.findByIdAndDelete({_id: req.params.id});
     res.redirect("/education");
 }));
 
@@ -119,7 +119,6 @@ app.post("/experience", validateExperience, catchAsync(async (req, res) => {
 
 app.get("/experience", catchAsync(async (req, res) => {
     const experiences = await Experience.find({});
-    console.log(experiences);
     res.render("experiences/index", { experiences });
 }));
 
@@ -138,12 +137,12 @@ app.put("/experience/:id", validateExperience, catchAsync(async (req, res) => {
         endDate: endDate
     }
 
-    await Experience.findByIdAndUpdate({_id: req.params.id}, newExp);
+    const exp = await Experience.findByIdAndUpdate({_id: req.params.id}, newExp);
     res.redirect("/experience");
 
 }));
 app.delete("/experience/:id", catchAsync(async (req, res) => {
-    await Experience.findByIdAndDelete({_id: req.params.id});
+    const exp = await Experience.findByIdAndDelete({_id: req.params.id});
     res.redirect("/experience");
 }));
 
@@ -153,9 +152,20 @@ app.get("/experience/:id/edit", catchAsync(async (req, res) => {
 }));
 
 // PROJECTS
-app.get("/projects", (req, res) => {
-    res.render("projects");
+app.post("/projects", catchAsync(async (req, res) => {
+
+}));
+
+app.get("/projects", catchAsync(async (req, res) => {
+    const projects = await Projects.find({});
+    res.render("projects/index", { projects });
+}));
+app.get("/projects/new", (req, res) => {
+
 });
+app.put("/projects/:id", catchAsync(async (req, res) => {
+
+}));
 
 app.get("/projects/:id", (req, res) => {
     res.send("singular project");
