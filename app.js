@@ -4,7 +4,7 @@ const path = require("path");
 
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
-const {educationSchema, experienceSchema} = require("./schemas.js")
+const {educationSchema, experienceSchema, projectSchema} = require("./schemas.js")
 const catchAsync = require("./utils/catchAsync");
 const ExpressError = require("./utils/ExpressError");
 
@@ -14,7 +14,6 @@ const Message = require("./models/message");
 const Education = require("./models/education");
 const Experience = require("./models/experience");
 const Project = require("./models/project");
-const education = require("./models/education");
 
 
 mongoose.connect("mongodb://localhost:27017/portfolio", {
@@ -31,9 +30,9 @@ app.engine("ejs", ejsMate);
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
+app.use(methodOverride("_method"));
 app.use(express.urlencoded({ extended: true}));
 app.use(express.json());
-app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "public")));
 
 // BACKEND FORM VALIDATION FUNCTIONS
@@ -50,6 +49,17 @@ const validateEducation = (req, res, next) => {
 
 const validateExperience = (req, res, next) => {
     const {error} = experienceSchema.validate(req.body);
+    if (error) {
+        const message = error.details.map(el => el.message).join(",");
+        throw new ExpressError(message, 400);
+    }
+    else {
+        next();
+    }
+}
+
+const validateProject = (req, res, next) => {
+    const {error} = projectSchema.validate(req.body);
     if (error) {
         const message = error.details.map(el => el.message).join(",");
         throw new ExpressError(message, 400);
@@ -152,19 +162,53 @@ app.get("/experience/:id/edit", catchAsync(async (req, res) => {
 }));
 
 // PROJECTS
-app.post("/projects", catchAsync(async (req, res) => {
-
+app.post("/projects", validateProject, catchAsync(async (req, res) => {
+    let {name, shortDescription, longDescription, stack, link, image} = req.body;
+    stack = stack.split(",");
+    const newProj = {
+        name: name,
+        shortDescription: shortDescription,
+        longDescription: longDescription,
+        stack: stack,
+        link: link,
+        image: image
+    }
+    const proj = new Project(newProj);
+    await proj.save();
+    res.redirect("/projects");
 }));
 
 app.get("/projects", catchAsync(async (req, res) => {
-    const projects = await Projects.find({});
-    res.render("projects/index", { projects });
+    const projects = await Project.find({});
+    res.render("projects/index", {projects});
 }));
 app.get("/projects/new", (req, res) => {
-
+    res.render("projects/new");
 });
-app.put("/projects/:id", catchAsync(async (req, res) => {
+app.put("/projects/:id", validateProject, catchAsync(async (req, res) => {
+    let {name, shortDescription, longDescription, stack, link, image} = req.body;
+    stack = stack.split(",");
+    const newProj = {
+        name: name,
+        shortDescription: shortDescription,
+        longDescription: longDescription,
+        stack: stack,
+        link: link,
+        image: image
+    }
 
+    const proj = await Project.findByIdAndUpdate({_id: req.params.id}, newProj);
+    res.redirect(`/projects`);
+}));
+
+app.get("/projects/:id/edit", catchAsync(async (req, res) => {
+    const proj = await Project.findById({_id: req.params.id});
+    res.render("projects/edit", { proj });
+}));
+
+app.delete("/projects/:id", catchAsync(async (req, res) => {
+    const proj = await Project.findByIdAndDelete({_id: req.params.id});
+    res.redirect("/projects");
 }));
 
 app.get("/projects/:id", (req, res) => {

@@ -10,14 +10,14 @@
                 <form class="my-3" action="/experience/<%= exp._id %>?_method=PUT" method="POST" autocomplete="off">
                     <div class="row justify-content-center align-items-center">
                         <div class="form-group col-lg-6">
-                            <label for="name">Title</label>
+                            <label for="title">Title</label>
                             <input type="text" class="form-control" id="title" name="title" value="<%= exp.title %>"
                                 required>
                         </div>
                     </div>
                     <div class="row justify-content-center align-items-center">
                         <div class="form-group col-lg-6">
-                            <label for="description">Employer</label>
+                            <label for="employer">Employer</label>
                             <input type="text" class="form-control" id="employer" name="employer"
                                 value="<%= exp.employer %>" required>
                         </div>

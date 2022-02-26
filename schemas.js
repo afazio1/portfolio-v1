@@ -15,4 +15,13 @@ module.exports.experienceSchema = Joi.object({
     stack: Joi.string().required(),
     startDate: Joi.date().required(),
     endDate: Joi.date().allow(null, "").optional()
-})
+});
+
+module.exports.projectSchema = Joi.object({
+    name: Joi.string().required(),
+    shortDescription: Joi.string().required(),
+    longDescription: Joi.string().required(),
+    stack: Joi.string().required(),
+    link: Joi.string().uri().required(),
+    image: Joi.string().uri().required()
+});
