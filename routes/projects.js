@@ -66,8 +66,9 @@ router.delete("/:id", catchAsync(async (req, res) => {
     res.redirect("/projects");
 }));
 
-router.get("/:id", (req, res) => {
-    res.send("singular project");
-});
+router.get("/:id", catchAsync(async (req, res) => {
+    const proj = await Project.findById({_id: req.params.id});
+    res.render("projects/show", { proj });
+}));
 
 module.exports = router;
