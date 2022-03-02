@@ -6,17 +6,18 @@
         </header>
         <div class="row justify-content-center align-items-center">
             <div class="col-lg-8 mt-5">
-                <img src="<%= proj.image %>" class="img-fluid mx-auto d-block">
-            </div>
-        </div>
-        <div class="row justify-content-center align-items-center">
-            <div class="col-lg-8 mt-5">
-                <h3 class="text-center">Tech Stack: {<span><%= proj.stack.join(", ") %></span>}</h3>
-            </div>
-        </div>
-        <div class="row justify-content-center align-items-center">
-            <div class="col-lg-8 mt-5">
-                <p class="item p-3"><%= proj.longDescription %></p>
+                <div class="card mb-3 bg-dark text-white">
+                    <img src="<%= proj.image %>" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title"><%= proj.shortDescription %></h5>
+                        <p class="card-text"><%= proj.longDescription %></p>
+                        <p class="card-text"><small class="stack"><%= proj.stack.join(", ") %></small></p>
+                        <p class="card-footer text-center project-footer"><small><a href="<%= proj.link %>"
+                                    target="_blank" rel="noopener noreferrer"><i
+                                        class="fa-brands fa-github small-icon rounded-circle"></i></a></small>
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>

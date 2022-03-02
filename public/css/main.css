@@ -122,3 +122,20 @@ b {
   left: -50px;
   transform: translateY(-50%);
 }
+
+.card-title {
+    color: #B0FF92;
+}
+.stack {
+    color: #91C0D8;
+}
+.small-icon {
+    font-size: 2rem;
+}
+.card-footer {
+    background-color: #ffffff00;
+}
+.project-footer {
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
