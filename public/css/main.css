@@ -71,6 +71,9 @@ b {
 .bio {
     margin-top: 10vh;
 }
+.contact-footer {
+    font-size: 1.5rem;
+}
 .navbar {
     font-family: 'Source Code Pro', monospace;
     font-size: 1.2rem;
@@ -122,15 +125,8 @@ b {
   left: -50px;
   transform: translateY(-50%);
 }
-
 .card-title {
     color: #B0FF92;
-}
-.stack {
-    color: #91C0D8;
-}
-.small-icon {
-    font-size: 2rem;
 }
 .card-footer {
     background-color: #ffffff00;
@@ -138,4 +134,14 @@ b {
 .project-footer {
     padding-bottom: 0;
     margin-bottom: 0;
+}
+.stack {
+    color: #91C0D8;
+}
+.small-icon {
+    font-size: 2rem;
+}
+.email-icon {
+    background-color: #B0FF92;
+    font-size: 2rem;
 }

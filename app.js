@@ -44,7 +44,6 @@ app.get("/about", (req, res) => {
     res.render("about");
 });
 
-
 app.all("*", (req, res, next) => {
     next(new ExpressError("Page not found", 404));
 });

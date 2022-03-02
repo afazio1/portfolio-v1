@@ -25,3 +25,9 @@ module.exports.projectSchema = Joi.object({
     link: Joi.string().uri().required(),
     image: Joi.string().uri().required()
 });
+
+module.exports.messageSchema = Joi.object({
+    name: Joi.string().required(),
+    email: Joi.string().email().required(),
+    message: Joi.string().required()
+});
