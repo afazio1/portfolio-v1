@@ -34,6 +34,11 @@ app.use("/education", educationRoutes);
 app.use("/experience", experienceRoutes);
 app.use("/projects", projectRoutes);
 
+
+// LOGIN
+app.get("/login", (req, res )=> {
+    res.render("login");
+})
 // HOME
 app.get("/", (req, res) => {
     res.render("home");
