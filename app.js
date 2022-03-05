@@ -4,6 +4,7 @@ const path = require("path");
 
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
+const session = require("express-session");
 const ExpressError = require("./utils/ExpressError");
 const mongoose = require("mongoose");
 
@@ -30,13 +31,25 @@ app.use(express.urlencoded({ extended: true}));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
+const sessionConfig = {
+    secret: "rats",
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        httpOnly: true,
+        expires: Date.now() + 1000 * 60 * 30,
+        maxAge: 1000 * 60 * 30
+    }
+}
+app.use(session(sessionConfig));
+
 app.use("/education", educationRoutes);
 app.use("/experience", experienceRoutes);
 app.use("/projects", projectRoutes);
 
 
 // LOGIN
-app.get("/login", (req, res )=> {
+app.get("/login", (req, res ) => {
     res.render("login");
 })
 // HOME
