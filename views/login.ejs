@@ -4,7 +4,8 @@
         <header class="col-lg-8 text-center mt-4">
             <h1>Login</h1>
         </header>
-        <form action="" method="POST" autocomplete="off">
+        <% if(!currentUser) { %>
+        <form action="/login" method="POST" autocomplete="off">
             <div class="row justify-content-center align-items-center">
                 <div class="form-group col-lg-4">
                     <label for="username">Username</label>
@@ -22,7 +23,11 @@
                     <button type="submit" class="btn btn-primary">Login</button>
                 </div>
             </div>
-
         </form>
+        <% } else { %>
+        <div class="col-lg-4 mt-3">
+            <a href="/logout" class="btn btn-warning">Logout</a>
+        </div>
+        <% } %>
     </section>
 </main>

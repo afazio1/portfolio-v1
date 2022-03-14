@@ -7,6 +7,12 @@ const ejsMate = require("ejs-mate");
 const session = require("express-session");
 const ExpressError = require("./utils/ExpressError");
 const mongoose = require("mongoose");
+const { isLoggedIn } = require("./middleware");
+
+const passport = require("passport");
+const LocalStrategy = require("passport-local");
+const User = require("./models/user");
+
 
 const educationRoutes = require("./routes/education");
 const experienceRoutes = require("./routes/experience");
@@ -42,6 +48,25 @@ const sessionConfig = {
     }
 }
 app.use(session(sessionConfig));
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+
+// app.get("/test", async (req, res) => {
+//     const user = new User({username: "chicken"});
+//     const newUser = await User.register(user, "nugget");
+//     res.send(newUser);
+
+// });
+
+app.use((req, res, next) => {
+    res.locals.currentUser = req.user;
+    next();
+});
 
 app.use("/education", educationRoutes);
 app.use("/experience", experienceRoutes);
@@ -51,6 +76,15 @@ app.use("/projects", projectRoutes);
 // LOGIN
 app.get("/login", (req, res ) => {
     res.render("login");
+})
+app.post("/login", passport.authenticate("local", {failureRedirect: "/login"}), (req, res) => {
+
+    res.redirect("/");
+})
+
+app.get("/logout", isLoggedIn, (req, res) => {
+    req.logout();
+    res.redirect("/");
 })
 // HOME
 app.get("/", (req, res) => {

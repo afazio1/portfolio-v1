@@ -5,6 +5,7 @@ const catchAsync = require("../utils/catchAsync");
 const ExpressError = require("../utils/ExpressError");
 const mongoose = require("mongoose");
 const Experience = require("../models/experience");
+const { isLoggedIn } = require("../middleware");
 
 const validateExperience = (req, res, next) => {
     const {error} = experienceSchema.validate(req.body);
@@ -17,7 +18,7 @@ const validateExperience = (req, res, next) => {
     }
 }
 
-router.post("/", validateExperience, catchAsync(async (req, res) => {
+router.post("/", isLoggedIn, validateExperience, catchAsync(async (req, res) => {
     let {title, employer, link, stack, startDate, endDate} = req.body;
     stack = stack.split(",");
     const newExp = {
@@ -38,10 +39,10 @@ router.get("/", catchAsync(async (req, res) => {
     res.render("experiences/index", { experiences });
 }));
 
-router.get("/new", (req, res) => {
+router.get("/new", isLoggedIn, (req, res) => {
     res.render("experiences/new");
 });
-router.put("/experience/:id", validateExperience, catchAsync(async (req, res) => {
+router.put("/experience/:id", isLoggedIn, validateExperience, catchAsync(async (req, res) => {
     let {title, employer, link, stack, startDate, endDate} = req.body;
     stack = stack.split(",");
     const newExp = {
@@ -57,12 +58,12 @@ router.put("/experience/:id", validateExperience, catchAsync(async (req, res) =>
     res.redirect("/experience");
 
 }));
-router.delete("/:id", catchAsync(async (req, res) => {
+router.delete("/:id", isLoggedIn, catchAsync(async (req, res) => {
     const exp = await Experience.findByIdAndDelete({_id: req.params.id});
     res.redirect("/experience");
 }));
 
-router.get("/:id/edit", catchAsync(async (req, res) => {
+router.get("/:id/edit", isLoggedIn, catchAsync(async (req, res) => {
     const exp = await Experience.findById({_id: req.params.id});
     res.render("experiences/edit", { exp });
 }));

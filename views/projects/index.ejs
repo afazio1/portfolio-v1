@@ -6,9 +6,11 @@
             <h1 class="text-center">Projects</h1>
         </header>
         <div class="row justify-content-center align-items-center">
+            <% if(currentUser) { %>
             <div class="col-lg-8 mt-3 text-center">
                 <a href="projects/new" class="btn btn-success">New Project</a>
             </div>
+            <% } %>
             <div class="col-lg-8 mt-3">
                 <div>
                     <% for (let project of projects) { %>
@@ -20,6 +22,7 @@
                         </div>
                         <div class="card-footer text-white">
                             <a href="projects/<%= project._id %>" class="btn btn-dark">View</a>
+                            <% if(currentUser) { %>
                             <hr>
                             <div>
                                 <a href="projects/<%= project._id %>/edit" class="btn btn-info">Edit</a>
@@ -28,6 +31,7 @@
                                     <button type="submit" class="btn btn-danger">Delete</button>
                                 </form>
                             </div>
+                            <% } %>
                         </div>
                     </div>
                     <% } %>

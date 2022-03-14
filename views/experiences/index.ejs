@@ -6,8 +6,11 @@
             <h1 class="text-center">Experience</h1>
         </header>
         <div class="row justify-content-center align-items-center">
-            <div class="col-lg-8 mt-3 text-center"><a href="experience/new" class="btn btn-success">New Experience</a>
+            <% if(currentUser) { %>
+            <div class="col-lg-8 mt-3 text-center">
+                <a href="experience/new" class="btn btn-success">New Experience</a>
             </div>
+            <% } %>
             <div class="col-lg-8 mt-3">
                 <div class="timeline">
                     <% for (let experience of experiences) { %>
@@ -27,6 +30,7 @@
                             <% } else { %>
                             <span>Current</span>
                             <% } %>
+                            <% if(currentUser) { %>
                             <hr>
                             <div>
                                 <a href="experience/<%= experience._id %>/edit" class="btn btn-info">Edit</a>
@@ -35,6 +39,7 @@
                                     <button type="submit" class="btn btn-danger">Delete</button>
                                 </form>
                             </div>
+                            <% } %>
                         </div>
                     </div>
                     <% } %>
