@@ -5,18 +5,8 @@ const catchAsync = require("../utils/catchAsync");
 const ExpressError = require("../utils/ExpressError");
 const mongoose = require("mongoose");
 const Experience = require("../models/experience");
-const { isLoggedIn } = require("../middleware");
+const { isLoggedIn, validateExperience } = require("../middleware");
 
-const validateExperience = (req, res, next) => {
-    const {error} = experienceSchema.validate(req.body);
-    if (error) {
-        const message = error.details.map(el => el.message).join(",");
-        throw new ExpressError(message, 400);
-    }
-    else {
-        next();
-    }
-}
 
 router.post("/", isLoggedIn, validateExperience, catchAsync(async (req, res) => {
     let {title, employer, link, stack, startDate, endDate} = req.body;
@@ -42,7 +32,7 @@ router.get("/", catchAsync(async (req, res) => {
 router.get("/new", isLoggedIn, (req, res) => {
     res.render("experiences/new");
 });
-router.put("/experience/:id", isLoggedIn, validateExperience, catchAsync(async (req, res) => {
+router.put("/:id", isLoggedIn, validateExperience, catchAsync(async (req, res) => {
     let {title, employer, link, stack, startDate, endDate} = req.body;
     stack = stack.split(",");
     const newExp = {

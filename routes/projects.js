@@ -5,18 +5,8 @@ const catchAsync = require("../utils/catchAsync");
 const ExpressError = require("../utils/ExpressError");
 const mongoose = require("mongoose");
 const Project = require("../models/project");
-const { isLoggedIn } = require("../middleware");
+const { isLoggedIn, validateProject } = require("../middleware");
 
-const validateProject = (req, res, next) => {
-    const {error} = projectSchema.validate(req.body);
-    if (error) {
-        const message = error.details.map(el => el.message).join(",");
-        throw new ExpressError(message, 400);
-    }
-    else {
-        next();
-    }
-}
 
 router.post("/", isLoggedIn, validateProject, catchAsync(async (req, res) => {
     let {name, shortDescription, longDescription, stack, link, image} = req.body;
