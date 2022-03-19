@@ -6,37 +6,18 @@ const ExpressError = require("../utils/ExpressError");
 const mongoose = require("mongoose");
 const Education = require("../models/education");
 const { isLoggedIn, validateEducation } = require("../middleware");
+const education = require("../controllers/education");
 
+router.route("/")
+    .post(isLoggedIn, validateEducation, catchAsync(education.create))
+    .get(catchAsync(education.index));
 
+router.get("/new", isLoggedIn, education.renderNewForm);
 
-router.post("/", isLoggedIn, validateEducation, catchAsync(async (req, res, next) => {
-    const edu = new Education(req.body);
-    await edu.save();
-    res.redirect("/education");
-}));
+router.route("/:id")
+    .put(isLoggedIn, validateEducation, catchAsync(education.update))
+    .delete(isLoggedIn, catchAsync(education.delete));
 
-router.get("/", catchAsync(async (req, res) => {
-    const educations = await Education.find({});
-    res.render("educations/index", { educations });
-}));
-
-router.get("/new", isLoggedIn, (req, res) => {
-    res.render("educations/new");
-});
-router.put("/:id", isLoggedIn, validateEducation, catchAsync(async (req, res) => {
-    const edu = await Education.findByIdAndUpdate({_id: req.params.id}, req.body);
-    res.redirect("/education");
-
-}));
-
-router.delete("/:id", isLoggedIn, catchAsync(async (req, res) => {
-    const edu = await Education.findByIdAndDelete({_id: req.params.id});
-    res.redirect("/education");
-}));
-
-router.get("/:id/edit", isLoggedIn, catchAsync(async (req, res) => {
-    const edu = await Education.findById({_id: req.params.id});
-    res.render("educations/edit", { edu });
-}));
+router.get("/:id/edit", isLoggedIn, catchAsync(education.renderEditForm));
 
 module.exports = router;

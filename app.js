@@ -17,6 +17,7 @@ const User = require("./models/user");
 const educationRoutes = require("./routes/education");
 const experienceRoutes = require("./routes/experience");
 const projectRoutes = require("./routes/projects");
+const userRoutes = require('./routes/users');
 
 mongoose.connect("mongodb://localhost:27017/portfolio", {
     useUnifiedTopology: true
@@ -71,22 +72,8 @@ app.use((req, res, next) => {
 app.use("/education", educationRoutes);
 app.use("/experience", experienceRoutes);
 app.use("/projects", projectRoutes);
+app.use("/", userRoutes);
 
-
-// LOGIN
-app.get("/login", (req, res ) => {
-    res.render("login");
-})
-app.post("/login", passport.authenticate("local", {failureRedirect: "/login"}), (req, res) => {
-    const redirectUrl = req.session.returnTo || "/";
-    delete req.session.returnTo;
-    res.redirect(redirectUrl);
-})
-
-app.get("/logout", isLoggedIn, (req, res) => {
-    req.logout();
-    res.redirect("/");
-})
 // HOME
 app.get("/", (req, res) => {
     res.render("home");

@@ -6,56 +6,19 @@ const ExpressError = require("../utils/ExpressError");
 const mongoose = require("mongoose");
 const Experience = require("../models/experience");
 const { isLoggedIn, validateExperience } = require("../middleware");
+const experience = require("../controllers/experience");
+const { route } = require("./education.js");
 
+router.route("/")
+    .post(isLoggedIn, validateExperience, catchAsync(experience.create))
+    .get(catchAsync(experience.index));
 
-router.post("/", isLoggedIn, validateExperience, catchAsync(async (req, res) => {
-    let {title, employer, link, stack, startDate, endDate} = req.body;
-    stack = stack.split(",");
-    const newExp = {
-        title: title,
-        employer: employer,
-        link: link,
-        stack: stack,
-        startDate: startDate,
-        endDate: endDate
-    }
-    const exp = new Experience(newExp);
-    await exp.save();
-    res.redirect("/experience");
-}));
+router.get("/new", isLoggedIn, experience.renderNewForm);
 
-router.get("/", catchAsync(async (req, res) => {
-    const experiences = await Experience.find({});
-    res.render("experiences/index", { experiences });
-}));
+router.route("/:id")
+    .put(isLoggedIn, validateExperience, catchAsync(experience.update))
+    .delete(isLoggedIn, catchAsync(experience.delete));
 
-router.get("/new", isLoggedIn, (req, res) => {
-    res.render("experiences/new");
-});
-router.put("/:id", isLoggedIn, validateExperience, catchAsync(async (req, res) => {
-    let {title, employer, link, stack, startDate, endDate} = req.body;
-    stack = stack.split(",");
-    const newExp = {
-        title: title,
-        employer: employer,
-        link: link,
-        stack: stack,
-        startDate: startDate,
-        endDate: endDate
-    }
-
-    const exp = await Experience.findByIdAndUpdate({_id: req.params.id}, newExp);
-    res.redirect("/experience");
-
-}));
-router.delete("/:id", isLoggedIn, catchAsync(async (req, res) => {
-    const exp = await Experience.findByIdAndDelete({_id: req.params.id});
-    res.redirect("/experience");
-}));
-
-router.get("/:id/edit", isLoggedIn, catchAsync(async (req, res) => {
-    const exp = await Experience.findById({_id: req.params.id});
-    res.render("experiences/edit", { exp });
-}));
+router.get("/:id/edit", isLoggedIn, catchAsync(experience.renderEditForm));
 
 module.exports = router;
