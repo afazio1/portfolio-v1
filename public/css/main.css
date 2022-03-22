@@ -145,3 +145,16 @@ b {
     background-color: #B0FF92;
     font-size: 2rem;
 }
+
+#background {
+    position: absolute;
+    z-index: -1;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    top: 50px;
+}
+.connect-section {
+    margin-top: 7rem;
+}

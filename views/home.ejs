@@ -1,15 +1,16 @@
 <% layout("layouts/boilerplate") %>
 <main class="container">
-    <section class="row justify-content-center align-items-center mt-5 heading pb-5">
+    <img src="/images/monitor.webp" alt="" id="background">
+    <section class="row justify-content-center align-items-center mt-5 pb-5">
         <div class="col-lg-2">
             <img src="/images/profile.png" alt="Alexa's profile picture" id="profile">
         </div>
-        <div class="col-lg-6 col-md-6">
-            <h1 class="text-center">Alexa Fazio</h1>
-            <h2 class="text-center">Full Stack Developer</h2>
+        <div class="col-lg-6 col-md-6" id="typing">
+            <h1 class="text-center" id="typeName"></h1>
+            <h2 class="text-center" id="typeTitle"></h2>
         </div>
     </section>
-    <header class="row mt-5 justify-content-center align-items-center">
+    <header class="row connect-section justify-content-center align-items-center">
         <h3 class="text-center">{<span>Connect</span>}</h3>
     </header>
     <section class="row justify-content-center text-center mt-5 g-0">
@@ -32,3 +33,25 @@
         </div>
     </section>
 </main>
+
+<script src="https://unpkg.com/typeit@8.2.0/dist/index.umd.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        new TypeIt("#typeName", {
+            strings: "Alexa Fazio",
+            waitUntilVisible: true,
+            afterComplete: function () {
+                const cursor = document.getElementsByClassName("ti-cursor")[0].remove();
+                console.log(cursor);
+            }
+        }).go();
+
+        setTimeout(() => {
+            new TypeIt('#typeTitle', {
+                strings: "Full Stack Developer"
+            }).go();
+        }, 2000);
+
+    });
+
+</script>
