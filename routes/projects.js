@@ -1,16 +1,19 @@
 const express = require("express");
 const router = express.Router();
-const {projectSchema} = require("../schemas.js");
+const { projectSchema } = require("../schemas.js");
 const catchAsync = require("../utils/catchAsync");
 const ExpressError = require("../utils/ExpressError");
 const mongoose = require("mongoose");
 const Project = require("../models/project");
 const { isLoggedIn, validateProject } = require("../middleware");
 const projects = require("../controllers/projects");
+const multer = require("multer");
+const { storage } = require("../cloudinary");
+const upload = multer({ storage });
 
 
 router.route("/")
-    .post(isLoggedIn, validateProject, catchAsync(projects.create))
+    .post(isLoggedIn, upload.array("image"), validateProject, catchAsync(projects.create))
     .get(catchAsync(projects.index));
 
 router.get("/new", isLoggedIn, projects.renderNewForm);

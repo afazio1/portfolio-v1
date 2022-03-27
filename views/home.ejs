@@ -1,11 +1,11 @@
 <% layout("layouts/boilerplate") %>
 <main class="container">
-    <img src="/images/monitor.webp" alt="" id="background">
+    <img src="/images/monitor2.webp" alt="" id="background">
     <section class="row justify-content-center align-items-center mt-5 pb-5">
-        <div class="col-lg-2">
+        <!-- <div class="col-lg-2">
             <img src="/images/profile.png" alt="Alexa's profile picture" id="profile">
-        </div>
-        <div class="col-lg-6 col-md-6" id="typing">
+        </div> -->
+        <div class="col-lg-6 col-md-6 mt-5" id="typing">
             <h1 class="text-center" id="typeName"></h1>
             <h2 class="text-center" id="typeTitle"></h2>
         </div>
@@ -52,6 +52,12 @@
             }).go();
         }, 2000);
 
+    });
+
+    const background = document.getElementById("background");
+    background.addEventListener("mouseover", function () {
+        console.log("rats");
+        background.cursor.style = "crosshair";
     });
 
 </script>

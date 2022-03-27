@@ -7,7 +7,29 @@
         <div class="row justify-content-center align-items-center">
             <div class="col-lg-8 mt-5">
                 <div class="card mb-3 bg-dark text-white">
-                    <img src="<%= proj.image %>" class="card-img-top" alt="...">
+                    <div id="imageCarousel" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            <% for (let i = 0; i < proj.images.length; i++) { %>
+                            <% let active = i === 0 ? "active" : "" %>
+                            <div class="carousel-item <%= active %>">
+                                <img src="<%= proj.images[i].url %>" class="d-block w-100" alt="...">
+                            </div>
+                            <% } %>
+                        </div>
+                        <% if (proj.images.length > 1) { %>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#imageCarousel"
+                            data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#imageCarousel"
+                            data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                        <% } %>
+                    </div>
+
                     <div class="card-body">
                         <h5 class="card-title"><%= proj.shortDescription %></h5>
                         <p class="card-text"><%= proj.longDescription %></p>

@@ -1,3 +1,7 @@
+if (process.env.NODE_ENV !== "production") {
+    require("dotenv").config();
+}
+
 const express = require("express");
 const app = express();
 const path = require("path");
@@ -34,7 +38,7 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
 app.use(methodOverride("_method"));
-app.use(express.urlencoded({ extended: true}));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -56,13 +60,6 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-
-// app.get("/test", async (req, res) => {
-//     const user = new User({username: "chicken"});
-//     const newUser = await User.register(user, "nugget");
-//     res.send(newUser);
-
-// });
 
 app.use((req, res, next) => {
     res.locals.currentUser = req.user;
@@ -90,7 +87,7 @@ app.all("*", (req, res, next) => {
 
 app.use((err, req, res, next) => {
     const { statusCode = 500 } = err;
-    if(!err.message) err.message = "Something went wrong.";
+    if (!err.message) err.message = "Something went wrong.";
     res.status(statusCode).render("error", { err });
 
 })

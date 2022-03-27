@@ -23,6 +23,6 @@ module.exports.projectSchema = Joi.object({
     longDescription: Joi.string().required(),
     stack: Joi.string().required(),
     link: Joi.string().uri().required(),
-    image: Joi.string().uri().required()
+    // image: Joi.string().uri().required()
 });
 

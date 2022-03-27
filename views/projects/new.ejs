@@ -7,7 +7,7 @@
         </header>
         <div class="row justify-content-center align-items-center">
             <div class="col-lg-8 mt-3">
-                <form class="my-3" action="/projects" method="POST" autocomplete="off">
+                <form class="my-3" action="/projects" method="POST" autocomplete="off" enctype="multipart/form-data">
                     <div class="row justify-content-center align-items-center">
                         <div class="form-group col-lg-6">
                             <label for="name">Name</label>
@@ -44,7 +44,7 @@
                     <div class="row justify-content-center align-items-center">
                         <div class="form-group col-lg-6">
                             <label for="image">Image</label>
-                            <input type="text" class="form-control" id="image" name="image" required>
+                            <input type="file" class="form-control" id="image" name="image" multiple required>
                         </div>
                     </div>
                     <div class="row my-3 align-items-center">

@@ -156,5 +156,9 @@ b {
     top: 50px;
 }
 .connect-section {
-    margin-top: 7rem;
+    padding-top: 12rem;
+}
+
+.carousel-item {
+    max-height: 700px;
 }
