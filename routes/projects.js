@@ -22,7 +22,7 @@ router.get("/new", isLoggedIn, projects.renderNewForm);
 router.get("/:id/edit", isLoggedIn, catchAsync(projects.renderEditForm));
 
 router.route("/:id")
-    .put(isLoggedIn, validateProject, catchAsync(projects.update))
+    .put(isLoggedIn, upload.array("image"), validateProject, catchAsync(projects.update))
     .delete(isLoggedIn, catchAsync(projects.delete))
     .get(catchAsync(projects.show));
 

@@ -1,4 +1,5 @@
 const Project = require("../models/project");
+const { cloudinary } = require("../cloudinary");
 
 module.exports.index = async (req, res) => {
     const projects = await Project.find({});
@@ -26,19 +27,21 @@ module.exports.renderNewForm = (req, res) => {
 }
 
 module.exports.update = async (req, res) => {
-    let { name, shortDescription, longDescription, stack, link, image } = req.body;
+    let { name, shortDescription, longDescription, stack, link } = req.body;
     stack = stack.split(",");
     const newProj = {
         name,
         shortDescription,
         longDescription,
         stack,
-        link,
-        image
+        link
     }
-
     const proj = await Project.findByIdAndUpdate({ _id: req.params.id }, newProj);
-    res.redirect(`/projects`);
+    let newImg = req.files.map(f => ({ url: f.path, filename: f.filename }));
+    proj.images.push(...newImg);
+    await proj.save();
+
+    res.redirect(`/projects/${proj._id}`);
 }
 
 module.exports.renderEditForm = async (req, res) => {
@@ -48,6 +51,9 @@ module.exports.renderEditForm = async (req, res) => {
 
 module.exports.delete = async (req, res) => {
     const proj = await Project.findByIdAndDelete({ _id: req.params.id });
+    for (img of proj.images) {
+        await cloudinary.uploader.destroy(img.filename);
+    }
     res.redirect("/projects");
 }
 
