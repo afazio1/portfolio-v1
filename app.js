@@ -12,11 +12,12 @@ const session = require("express-session");
 const ExpressError = require("./utils/ExpressError");
 const mongoose = require("mongoose");
 const { isLoggedIn } = require("./middleware");
+const mongoSanitize = require('express-mongo-sanitize');
 
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user");
-
+const helmet = require("helmet");
 
 const educationRoutes = require("./routes/education");
 const experienceRoutes = require("./routes/experience");
@@ -41,13 +42,16 @@ app.use(methodOverride("_method"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
+app.use(mongoSanitize());
 
 const sessionConfig = {
+    name: "session",
     secret: "rats",
     resave: false,
     saveUninitialized: true,
     cookie: {
         httpOnly: true,
+        // secure: true,
         expires: Date.now() + 1000 * 60 * 30,
         maxAge: 1000 * 60 * 30
     }
@@ -55,8 +59,56 @@ const sessionConfig = {
 app.use(session(sessionConfig));
 app.use(passport.initialize());
 app.use(passport.session());
-passport.use(new LocalStrategy(User.authenticate()));
 
+// HELMET SECURITY
+app.use(helmet({ crossOriginEmbedderPolicy: false }));
+
+const scriptSrcUrls = [
+    "https://stackpath.bootstrapcdn.com/",
+    "https://kit.fontawesome.com/",
+    "https://cdnjs.cloudflare.com/",
+    "https://cdn.jsdelivr.net",
+    "https://unpkg.com/typeit@8.2.0/dist/index.umd.js",
+    "https://fonts.googleapis.com/"
+];
+const styleSrcUrls = [
+    "https://kit-free.fontawesome.com/",
+    "https://fonts.googleapis.com/",
+    "https://use.fontawesome.com/",
+    "https://cdn.jsdelivr.net",
+    "https://stackpath.bootstrapcdn.com",
+    "https://cdnjs.cloudflare.com/"
+
+];
+const connectSrcUrls = [
+    "https://stackpath.bootstrapcdn.com"
+];
+const fontSrcUrls = [
+    "https://fonts.googleapis.com/",
+    "https://fonts.gstatic.com",
+    "https://cdnjs.cloudflare.com/"
+];
+app.use(
+    helmet.contentSecurityPolicy({
+        directives: {
+            defaultSrc: [],
+            connectSrc: ["'self'", ...connectSrcUrls],
+            scriptSrc: ["'unsafe-inline'", "'self'", ...scriptSrcUrls],
+            styleSrc: ["'self'", "'unsafe-inline'", ...styleSrcUrls],
+            workerSrc: ["'self'", "blob:"],
+            objectSrc: [],
+            imgSrc: [
+                "'self'",
+                "blob:",
+                "data:",
+                `https://res.cloudinary.com/${process.env.CLOUDINARY_CLOUD_NAME}/`
+            ],
+            fontSrc: ["'self'", ...fontSrcUrls],
+        },
+    })
+);
+
+passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 

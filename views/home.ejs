@@ -42,7 +42,6 @@
             waitUntilVisible: true,
             afterComplete: function () {
                 const cursor = document.getElementsByClassName("ti-cursor")[0].remove();
-                console.log(cursor);
             }
         }).go();
 
@@ -52,12 +51,6 @@
             }).go();
         }, 2000);
 
-    });
-
-    const background = document.getElementById("background");
-    background.addEventListener("mouseover", function () {
-        console.log("rats");
-        background.cursor.style = "crosshair";
     });
 
 </script>
