@@ -81,10 +81,17 @@ b {
 .nav-link {
     box-sizing: border-box;
     color: white;
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    transition: border-bottom 0.2s ease-in-out;
+    padding-top: 0;
+    padding-bottom: 0;
 }
 /* 536E7B */
 .nav-link:hover {
      color: #B0FF92 !important;
+     text-decoration: none;
+     border-bottom: 2px solid #F2E863;
 }
 .item {
     font-family: 'Source Code Pro', monospace;
@@ -161,4 +168,11 @@ b {
 
 .carousel-item {
     max-height: 700px;
+}
+
+@media (max-width: 768px) {
+    .socials {
+        transform: scale(0.5);
+        padding: 5px 0;
+    }
 }
