@@ -46,11 +46,13 @@ input, textarea {
 }
 .icon {
     max-width: 100px;
+    padding: 1rem;
     transition: padding 0.2s ease-in;  
 }
 
 .socials {
-    padding: 5px 0;
+    margin: 5px 0;
+    display: inline-block;
 }
 span {
     color: #B0FF92;
@@ -59,7 +61,7 @@ span {
     text-decoration: none;
 }
 .icon:hover {
-    padding: 0.3rem;
+    padding: 0.7rem;
     border-bottom: #F2E863 solid 2px;
 }
 b {
@@ -170,9 +172,19 @@ b {
     max-height: 700px;
 }
 
-@media (max-width: 768px) {
-    .socials {
-        transform: scale(0.5);
-        padding: 5px 0;
+@media screen and (max-width: 768px) {
+    html, body {
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+    .icon {
+        max-width: 50px;
+        padding: 0;
+    }
+    .icon:hover {
+        padding: 0.2rem;
+    }
+    .connect-section {
+        padding: 0;
     }
 }
