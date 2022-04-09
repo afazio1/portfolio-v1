@@ -7,7 +7,7 @@ body {
     background-color: #2A373E;
 }
 
-h1 {
+h1, .experience-heading {
     
     font-size: 3.5rem;
     color: white;
@@ -19,7 +19,6 @@ h2 {
     font-style: italic;
 }
 h3 {
-    
     color: white;
     font-size: 2.5rem;
 }
@@ -100,7 +99,6 @@ b {
     color: #91C0D8;
     border-right: 2px solid #B0FF92;
     background-color: #91c0d81e;
-    /* display: inline-block; */
 }
 .item:last-of-type {
     font-family: 'Source Code Pro', monospace;
@@ -171,8 +169,15 @@ b {
 .carousel-item {
     max-height: 700px;
 }
+.grid {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    gap: 2rem;
+    max-height: 200px;
+}
 
 @media screen and (max-width: 768px) {
+    /* home page */
     html, body {
         max-width: 100%;
         overflow-x: hidden;
@@ -187,4 +192,24 @@ b {
     .connect-section {
         padding: 0;
     }
+    
+    /* Other pages */
+    h1 {
+        font-size: 2.5rem;
+    }
+    .heading {
+        margin-inline: 1rem;
+    }
+    .item, .card-title {
+        font-size: 1rem;
+        
+    }
+    .timeline {
+        margin-left: 20px;
+    }
+    .experience-heading {
+        font-size: 2.3rem;
+    }
+    
+
 }
