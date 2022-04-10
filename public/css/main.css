@@ -99,6 +99,8 @@ b {
     color: #91C0D8;
     border-right: 2px solid #B0FF92;
     background-color: #91c0d81e;
+    animation-duration: 2s;
+    animation-name: slidein;
 }
 .item:last-of-type {
     font-family: 'Source Code Pro', monospace;
@@ -119,7 +121,9 @@ b {
 
 .card {
   position: relative;
+  
 }
+
 
 .timeline > .card::after {
   content: "";
@@ -162,8 +166,27 @@ b {
     right: 0;
     top: 50px;
 }
+@keyframes slidein {
+    from {
+        opacity: 0;
+        transform: translateY(50%);
+    }
+    /* 75% {
+        opacity: 0.2;
+    } */
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 .connect-section {
     padding-top: 12rem;
+    animation-duration: 2s;
+    animation-name: slidein;
+}
+.social-section {
+    animation-duration: 2s;
+    animation-name: slidein;
 }
 
 .carousel-item {
@@ -174,6 +197,9 @@ b {
     grid-template-columns: 50% 50%;
     gap: 2rem;
     max-height: 200px;
+}
+.name-div {
+    min-height: 300px;
 }
 
 @media screen and (max-width: 768px) {
@@ -192,6 +218,9 @@ b {
     .connect-section {
         padding: 0;
     }
+    #typeName {
+        font-size: 2rem;
+    }
     
     /* Other pages */
     h1 {
@@ -209,6 +238,11 @@ b {
     }
     .experience-heading {
         font-size: 2.3rem;
+    }
+    .grid {
+        display: grid;
+        grid-template-columns: 100%;
+        max-height: none;
     }
     
 
