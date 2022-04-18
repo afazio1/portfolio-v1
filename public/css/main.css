@@ -29,6 +29,7 @@ canvas {
 }
 #home-main {
     position: fixed;
+    
 }
 
 h1, .experience-heading {
@@ -124,7 +125,7 @@ b {
     border-right: 2px solid #B0FF92;
     background-color: #91c0d81e;
     animation-duration: 2s;
-    animation-name: slidein;
+    animation-name: timelineSlide;
 }
 .item:last-of-type {
     font-family: 'Source Code Pro', monospace;
@@ -133,6 +134,18 @@ b {
     border-right: 2px solid #B0FF92;
     background-color: #91c0d81e;
     
+}
+.project-item {
+    animation-duration: 1s;
+    animation-name: projectsAppear;
+}
+.project-item:last-of-type {
+    border-bottom: none;
+
+}
+.about-item {
+    animation-duration: 2s;
+    animation-name: slidein;
 }
 .timeline {
   display: flex;
@@ -167,6 +180,7 @@ b {
     background-color: #ffffff00;
 }
 .project-footer {
+    padding-left: 0;
     padding-bottom: 0;
     margin-bottom: 0;
 }
@@ -197,9 +211,24 @@ b {
         opacity: 0;
         transform: translateY(50%);
     }
-    /* 75% {
-        opacity: 0.2;
-    } */
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+@keyframes timelineSlide {
+    from {
+        transform: translateY(50%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+@keyframes projectsAppear {
+    from {
+        opacity: 0.7;
+        transform: translateY(10%);
+    }
     to {
         opacity: 1;
         transform: translateY(0);
@@ -225,8 +254,11 @@ b {
     max-height: 200px;
 }
 .name-div {
-    min-height: 300px;
-    
+    min-height: 250px;
+    text-shadow: 0px 2px 7px #212529;
+}
+.computer {
+    width: 300px;
 }
 /* #typing {
     background-color: #21252941;

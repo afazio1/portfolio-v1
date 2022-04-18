@@ -36,9 +36,16 @@
                         <h5 class="card-title"><%= proj.shortDescription %></h5>
                         <p class="card-text"><%= proj.longDescription %></p>
                         <p class="card-text"><small class="stack"><%= proj.stack.join(", ") %></small></p>
-                        <p class="card-footer text-center project-footer"><small><a href="<%= proj.link %>"
-                                    target="_blank" rel="noopener noreferrer"><i
-                                        class="fa-solid fa-square-arrow-up-right small-icon rounded-circle"></i></a></small>
+                        <p class="card-footer project-footer">
+                            <small>
+                                <% if (proj.liveLink !== undefined && proj.liveLink !== null && proj.liveLink !== "") { %>
+                                <a class="btn btn-light me-1" href="<%= proj.liveLink %>" target="_blank"
+                                    rel="noopener noreferrer">Live</a>
+                                <% } if (proj.sourceLink !== undefined && proj.sourceLink !== null && proj.sourceLink !== "") { %>
+                                <a class="btn btn-light" href="<%= proj.sourceLink %>" target="_blank"
+                                    rel="noopener noreferrer">Source</a>
+                                <% } %>
+                            </small>
                         </p>
                     </div>
                 </div>

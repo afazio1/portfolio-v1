@@ -7,14 +7,15 @@ module.exports.index = async (req, res) => {
 }
 
 module.exports.create = async (req, res) => {
-    let { name, shortDescription, longDescription, stack, link, image } = req.body;
+    let { name, shortDescription, longDescription, stack, liveLink, sourceLink, image } = req.body;
     stack = stack.split(",");
     const newProj = {
         name,
         shortDescription,
         longDescription,
         stack,
-        link,
+        liveLink,
+        sourceLink,
         images: req.files.map(f => ({ url: f.path, filename: f.filename }))
     }
     const proj = new Project(newProj);
@@ -27,14 +28,15 @@ module.exports.renderNewForm = (req, res) => {
 }
 
 module.exports.update = async (req, res) => {
-    let { name, shortDescription, longDescription, stack, link } = req.body;
+    let { name, shortDescription, longDescription, stack, liveLink, sourceLink } = req.body;
     stack = stack.split(",");
     const newProj = {
         name,
         shortDescription,
         longDescription,
         stack,
-        link
+        liveLink,
+        sourceLink
     }
     const proj = await Project.findByIdAndUpdate({ _id: req.params.id }, newProj);
     let newImg = req.files.map(f => ({ url: f.path, filename: f.filename }));

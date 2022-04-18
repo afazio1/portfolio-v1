@@ -15,13 +15,14 @@
     <canvas id="canvas" resize></canvas>
 
 
-    <section class="row justify-content-center align-items-center pb-5 name-div">
+    <section class="row justify-content-center align-items-center name-div">
         <div class="col-lg-6 col-md-6 mt-5" id="typing">
             <h1 class="text-center" id="typeName"></h1>
             <h2 class="text-center" id="typeTitle"></h2>
         </div>
     </section>
     <section class="row justify-content-center align-items-center">
+        <img class="computer" src="images/kawaii.gif" alt="">
         <p class="col-6-lg text-center text-white">
             I code. I code. I code. I code. I code. I code.
         </p>
@@ -59,7 +60,7 @@
 
         setTimeout(() => {
             new TypeIt('#typeTitle', {
-                strings: "Full Stack Developer"
+                strings: "Software Developer"
             }).go();
         }, 2000);
 

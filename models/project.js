@@ -27,9 +27,13 @@ const ProjectSchema = new Schema({
         type: [String],
         required: true
     },
-    link: {
+    liveLink: {
         type: String,
-        required: true
+        required: false
+    },
+    sourceLink: {
+        type: String,
+        required: false
     },
     images: [ImageSchema]
 

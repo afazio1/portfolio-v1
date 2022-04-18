@@ -45,7 +45,7 @@ module.exports.projectSchema = Joi.object({
     shortDescription: Joi.string().required().escapeHTML(),
     longDescription: Joi.string().required().escapeHTML(),
     stack: Joi.string().required().escapeHTML(),
-    link: Joi.string().uri().required().escapeHTML(),
-    // image: Joi.string().uri().required()
+    liveLink: Joi.string().uri().escapeHTML().allow(null, "").optional(),
+    sourceLink: Joi.string().uri().escapeHTML().allow(null, "").optional()
 });
 
