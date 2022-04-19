@@ -12,7 +12,7 @@ const passport = require("passport");
 // LOGIN
 router.route("/login")
     .get(users.index)
-    .post(passport.authenticate("local", {failureRedirect: "/login"}), users.loginUser);
+    .post(passport.authenticate("local", { failureRedirect: "/login" }), users.loginUser);
 
 router.get("/logout", isLoggedIn, users.logoutUser)
 

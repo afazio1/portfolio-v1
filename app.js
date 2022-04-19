@@ -41,6 +41,7 @@ db.once("open", () => {
 app.engine("ejs", ejsMate);
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
+app.set("trust proxy", 1);
 
 app.use(methodOverride("_method"));
 app.use(express.urlencoded({ extended: true }));
@@ -69,6 +70,7 @@ const sessionConfig = {
     cookie: {
         httpOnly: true,
         secure: true,
+        sameSite: "none",
         expires: Date.now() + 1000 * 60 * 30,
         maxAge: 1000 * 60 * 30
     }
