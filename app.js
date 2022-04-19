@@ -24,7 +24,11 @@ const experienceRoutes = require("./routes/experience");
 const projectRoutes = require("./routes/projects");
 const userRoutes = require('./routes/users');
 
-mongoose.connect("mongodb://localhost:27017/portfolio", {
+const MongoStore = require("connect-mongo");
+
+const dbUrl = process.env.DB_URL || "mongodb://localhost:27017/portfolio";
+
+mongoose.connect(dbUrl, {
     useUnifiedTopology: true
 });
 
@@ -44,14 +48,27 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(mongoSanitize());
 
+const secret = process.env.SECRET || "rats";
+
+const store = MongoStore.create({
+    mongoUrl: dbUrl,
+    secret,
+    touchAfter: 24 * 60 * 60
+});
+
+store.on("error", function (e) {
+    console.log("SESSION STORE ERROR", e);
+});
+
 const sessionConfig = {
+    store,
     name: "session",
-    secret: "rats",
+    secret,
     resave: false,
     saveUninitialized: true,
     cookie: {
         httpOnly: true,
-        // secure: true,
+        secure: true,
         expires: Date.now() + 1000 * 60 * 30,
         maxAge: 1000 * 60 * 30
     }
