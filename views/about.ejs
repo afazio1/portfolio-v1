@@ -42,3 +42,9 @@
         </div>
     </section>
 </main>
+<script>
+    const http = require("http");
+    setInterval(function () {
+        http.get("https://fast-ocean-50650.herokuapp.com/about");
+    }, 1500000); // every 25 minutes
+</script>
