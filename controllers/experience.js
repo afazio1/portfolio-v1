@@ -1,11 +1,11 @@
 const Experience = require("../models/experience");
 
 module.exports.index = async (req, res) => {
-    const experiences = await Experience.find({});
+    const experiences = await Experience.find({}).sort({ endDate: 1 });
     res.render("experiences/index", { experiences });
 }
 module.exports.create = async (req, res) => {
-    let {title, employer, link, stack, startDate, endDate} = req.body;
+    let { title, employer, link, stack, startDate, endDate } = req.body;
     stack = stack.split(",");
     const newExp = {
         title: title,
@@ -24,7 +24,7 @@ module.exports.renderNewForm = (req, res) => {
 }
 
 module.exports.update = async (req, res) => {
-    let {title, employer, link, stack, startDate, endDate} = req.body;
+    let { title, employer, link, stack, startDate, endDate } = req.body;
     stack = stack.split(",");
     const newExp = {
         title: title,
@@ -35,18 +35,18 @@ module.exports.update = async (req, res) => {
         endDate: endDate
     }
 
-    const exp = await Experience.findByIdAndUpdate({_id: req.params.id}, newExp);
+    const exp = await Experience.findByIdAndUpdate({ _id: req.params.id }, newExp);
     res.redirect("/experience");
 
 }
 
 module.exports.delete = async (req, res) => {
-    const exp = await Experience.findByIdAndDelete({_id: req.params.id});
+    const exp = await Experience.findByIdAndDelete({ _id: req.params.id });
     res.redirect("/experience");
 }
 
 module.exports.renderEditForm = async (req, res) => {
-    const exp = await Experience.findById({_id: req.params.id});
+    const exp = await Experience.findById({ _id: req.params.id });
     res.render("experiences/edit", { exp });
 }
 
