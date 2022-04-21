@@ -28,5 +28,22 @@
             crossorigin="anonymous"></script>
 
     </body>
+    <script>
+        window.onload = () => {
+            const url = window.location.href;
+            console.log(url);
+            const navContainer = document.getElementById("navbarNavAltMarkup");
+            const navLinks = navContainer.getElementsByClassName("nav-link");
+            let activeLink;
+            // remove all active classes and find the one that matches current url
+            for (var i = 0; i < navLinks.length; i++) {
+                navLinks[i].classList.remove("active");
+                if (navLinks[i].href === url) {
+                    activeLink = navLinks[i];
+                    activeLink.classList.add("active");
+                }
+            }
+        }
+    </script>
 
 </html>

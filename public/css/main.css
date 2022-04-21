@@ -114,7 +114,7 @@ b {
     padding-bottom: 0;
 }
 /* 536E7B */
-.nav-link:hover {
+.nav-link:hover, .active {
      color: #B0FF92 !important;
      text-decoration: none;
      border-bottom: 2px solid #F2E863;
