@@ -168,7 +168,7 @@ app.listen(port, () => {
 });
 
 // keep awake
-const http = require("http");
+const https = require("https");
 setInterval(function () {
-    http.get("https://fast-ocean-50650.herokuapp.com/about");
+    https.get("https://fast-ocean-50650.herokuapp.com/about");
 }, 1500000); // every 25 minutes
