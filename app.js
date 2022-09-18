@@ -142,8 +142,16 @@ app.use("/experience", experienceRoutes);
 app.use("/projects", projectRoutes);
 app.use("/", userRoutes);
 
+const IpSchema = new mongoose.Schema({
+    ip: String
+});
+
+const Ip = mongoose.model("Ip", IpSchema);
+
 // HOME
 app.get("/", (req, res) => {
+    const ip = new Ip({ ip: req.ip });
+    ip.save();
     res.render("home");
 });
 
