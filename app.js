@@ -144,7 +144,7 @@ app.use("/", userRoutes);
 
 // HOME
 app.get("/", (req, res) => {
-    res.render("home");
+    res.render("home", { ip: req.ip });
 });
 
 // ABOUT

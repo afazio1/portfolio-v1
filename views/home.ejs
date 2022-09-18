@@ -1,7 +1,6 @@
 <% layout("layouts/boilerplate") %>
 <main class="container-fluid" id="home-main">
     <canvas id="canvas" resize></canvas>
-
     <section class="row justify-content-center align-items-center name-div">
         <div class="col-lg-6 col-md-6 mt-5" id="typing">
             <h1 class="text-center" id="typeName"></h1>
@@ -35,6 +34,7 @@
 <script type="text/javascript" src="/js/paper-full.min.js"></script>
 <script type="text/paperscript" src="js/canvas.js" canvas="canvas"></script>
 <script>
+    console.log('<%- ip %>');
     document.addEventListener("DOMContentLoaded", function () {
         new TypeIt("#typeName", {
             strings: "Alexa Fazio",
