@@ -166,9 +166,3 @@ const port = process.env.PORT || 3000;
 app.listen(port, () => {
     console.log(`Serving on port ${port}`);
 });
-
-// keep awake
-const https = require("https");
-setInterval(function () {
-    https.get("https://fast-ocean-50650.herokuapp.com/about");
-}, 1500000); // every 25 minutes
