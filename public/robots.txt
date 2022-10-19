@@ -4,3 +4,4 @@ Disallow: /images/instagram.png
 Disallow: /images/kawaii.png
 Disallow: /images/twitch.png
 Disallow: /images/youtube.png
+Disallow: /images/linkedin.png

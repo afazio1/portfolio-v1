@@ -64,6 +64,8 @@ input, textarea {
 }
 #profile {
     max-width: 200px;
+    border: 2px solid #91C0D8;
+    border-radius: 50%;
 }
 .heading {
     border-bottom: 2px dashed white;
